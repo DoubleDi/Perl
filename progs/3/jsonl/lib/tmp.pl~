@@ -1,0 +1,5 @@
+use strict;
+use warnings;
+use DDP;
+use Local::JSONL qw(decode_jsonl);
+p decode_jsonl('{"a": 1}' + "\n" +'{"b": 2}')

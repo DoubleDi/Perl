@@ -1,0 +1,72 @@
+Модульность
+подключение кода:
+1)eval - тупо подставляем
+eval - только локальные переменные
+2)do 'sqr.pl'
+eval только из файла sqr.pl
+тоже только локальные
+3) require 'sqr.pl'
+require Local::Sqr
+обязательно проверяет на возвращающее значение
+
+require Module::My #Module/My.pm
+где ищутся модули: в @INC
+
+БЛОКИ ФАЗ
+BEGIN END CHECK INIT INITCHECK {}
+
+5) use
+как require только в BEGIN
+
+БЛОКИ ФАЗ
+package Local::Multiplier
+#namespace
+в модуле Local::Multiplier только пакет Local::Multiplier
+Local::Multiplier::m3(8) - функции
+package - где угодно открывает пакет до конца области видимости
+__PACKAGE__ - имя пакета
+
+my - обьявление внутри блока
+our - обьявление внутри пакета
+state - присваивание первый раз!!!
+
+глобальная область видимости
+main package - глобалльный пакет
+все переменные main::print_size();
+
+use - поддерживает параметры
+use Local::Module ('param1', 'param2'); 
+вызывает import()
+
+параметры - можно функйии получить, чтобы не писать ::
+
+Exporter - EXPORT_OK
+
+use Local::Module 1.5 # проверяет на версию
+use 5.12.1 - требуем интерпретатор перла нужной версии
+
+use strict; use warnings; # pragmatic modules
+use strict == refs vars subs
+use warnings  - вместо -w, но только в блоке;
+use diagnostics - большой warning
+
+use feature say
+
+версия 5.0.10
+use bigint bignum bigrat  #большие числа
+
+no Module - отключить модуль
+т е только внутри блока
+
+GLOB - все 5 типов переменной с одним именем в одном
+
+AUTOLOAD - содержит имя функции которую пытались вызвать
+
+local - присваивает временное значение до конца блока
+
+дз 1 - задание на экспорт через exporter
+дз 2 - на autoload -нет всех функций
+дз 3 - задание на таблицу символов; меняем переменные в некотором пакете
+через TYPEGLOB
+отключаем strinct 50 - 60
+имя пакета узнаем через caller

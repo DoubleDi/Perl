@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>last_five</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+    <div class="container">
+      <div class="blog-header">
+        <h1 class="blog-title">Last five registred users</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+        <% FOREACH usr IN users %>
+            <div class="media blog-post">
+              <div class="media-left">
+               <img class="media-object monster" src="<% usr.avatar %>" alt="user avatar">
+              </div>
+              <div class="media-body">
+                  <br>name == <% usr.nickname %>
+                  <br>pwd == <% usr.password %>
+              </div>
+            </div>
+        <% END %>
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+             <a href="/me" class="btn btn-lg btn-success">Change my profile</a>
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+  </body>
+</html>
+
+</body>
+</html>

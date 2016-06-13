@@ -1,0 +1,172 @@
+Perl 
+
+Документация perldoc
+
+perldoc perl - про все
+perlrequick, perlretut - регулярные выражения
+perlboot, perltoot, perltooc, perlbot - ООП
+perlstyle - стиль написания
+perlfaq* - FAQ
+perlsyn - синтаксис
+
+PERLSYN:
+statement - строчка кода
+$a = 42; #не типизированный => 42
+say "test"; # => 1
+eval { 7 };# => 7
+do { 1; 2; 3 }; # => 3
+my $var; # => undef (все my)
+# Комментарий
+
+СЛЕДУЮЩАЯ ЛЕКЦИЯ ГРОБ - подготовиться
+
+only strict mod!
+
+BLOCK:
+{
+statement;
+statement;
+...
+ВНУТРИ тут свои переменнные, которые не видны вне
+}
+
+if (expr) { ... }
+elsif (expr) { ... }
+else { ... }
+
+"==" - числа, "eq" - строчки
+'+', '.'
+
+unless (expr) { ... } # == if (not expr)
+elsif (expr) { ... }
+else { ... }
+
+LABEL:
+while (expr) { ... } continue { ... } # continue - блок,который вполняется каждый раз в конце каждого блока кода 
+
+LABEL:
+until (expr) { ... } continue { ... }
+
+for == foreach
+
+for (expr; expr; expr) { ... } # my $i = 0; i < 10; i++
+for ( LIST ) { ... } # сует элементы в $_, делает операции и сует в массив обратно
+for VAR ( LIST ) { ... } # VAR == $_
+for ( LIST ) { ... } continue { ... }
+for VAR ( LIST ) { ... } continue { ... }
+
+PERLDATA:
+Scalar(число/строка), array, hash (ассоциативный массив)
+
+Scalar:
+-Number
+-String
+-Reference
+Array:
+-of scalar
+hash:
+-Key: string
+-Value: scalar
+
+Scalar($s):
+-Number ($s = 1, $s = -1e30)
+-String($s = "str")
+-Reference:
+--scalar($$r, ${ $r })
+--array(@$r, @{ $r }, $r->[...])
+--hash(%$r, %{ $r }, $r->{...})
+--function(&$r, &{ $r }, $r->(...))
+--filehandle(*$r)
+--lvalue($$r, ${ $r })
+--reference($$r, ${ $r })
+Array(@a):
+-(@a, $a[...])
+Hash(%h):
+-(%h, $h{ key }, $h{ ... })
+
+PERLVAR:
+$_ $ARG - аргумент по умолчанию
+@_ @ARG - аргумент функции
+$a $b - переменные в сортировке # не надо их обьявлять
+%ENV - переменные окружения 
+@ARGV - аргументы программы # с командной строки
+
+for (sort { $a <=> $b } @ARGV) {
+    say "Arg: $_" #в одинарные ковычки или /$_
+    }
+say "Was run by $ENV{USER}";
+
+$" - разделитеоь при интерполяции в ковычках = "."
+$, - разделитель между элементами списка = ";"
+$/ - разделитель входного потока
+$\ - разделитель выходного потока = "\n\n"
+$. - каждая строчка считываемого файла инкрементирует эту переменную, т е показывает строчку
+
+
+while(<>) {# <> - считывать со входного потока
+    chomp;#отрезает перевод строки
+    @a = split /\s+/, $_;
+    say "$. @a", @a;
+    }
+
+$! $< $$ $0 $^X $^O $^V - переменные для дебага и вывода ошибок
+
+say "I'm $^X, $^V, on $^O";
+
+perlop - операции
+perlsub - функции
+perlfunc -встроенные функции
+perlrun - запуск скриптов
+
+StrawberryPerl
+
+use strict; #вначале
+my $var
+@var %var
+$var[0] $var{key}
+$array = [] $hash = {}
+
+perl -e 'print "hello world\n"'#наружние кавычки - одинарные
+perl -e 'while(<>){print "- ".$_}'# . - конкатенация
+-e 'while(<>)' == -ne
+
+chomp == -l
+
+-p == -n + 'print $_'
+
+-M - подключаем модули
+
+O - опции компилятора
+perl -MO=Backend
+B::Deparse - опкод -> perlкод
+ключи:
+-l -комментарии
+-p - скобки
+-Q - разверет интерполируемые строки
+-s - стиль
+-sC
+...
+
+Data::Dumper
+a => 1 - значение 1 
+Dumper($foo) - разворачивает структуры данных
+
+Data:Printer
+DDP
+p $foo - тоже разворачивает структуры #круче
+
+Отладка:
+perldebtut
+perldebug
+perl -d myscript.pl
+но сначала должен запускатсья perl -c 
+далее команды читать в мануале
+
+w - изменяет
+a - показывает
+
+email
+ДЗ - контроль на 3 лекции
+
+github
+

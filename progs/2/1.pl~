@@ -1,0 +1,38 @@
+use strict;
+use 5.018;
+use DDP;
+
+my @formula;
+my @signarr;
+my @numarr;
+my $number = 0;
+my $number2 = 0;
+my %prio = ( "+" => 1, "-" => 1, "*" => 2, "/" => 2, "(" => 0, ")" => 4);
+my $ch;
+
+@formula = split('', <>);
+pop @formula;
+while(scalar(@formula))
+{
+    $ch = shift @formula;
+    if ($ch > 0 || $ch eq "0") { $number = $number * 10 + $ch }
+    else 
+    {
+        if ($number) { push (@numarr, $number) }
+        if (exists($prio{$ch})) {
+            if (scalar(@signarr) > 1 && $prio{$signarr[$#signarr]} < $prio{$signarr[$#signarr - 1]}) 
+            {
+                $number = pop @numarr;
+                $number2 = pop @numarr;
+                $sign = pop @signarr;
+                push(numarr
+            }
+            $number = 0;
+            push (@signarr, $ch);
+        }
+        
+    }  
+}
+push (@numarr, $number);
+p @numarr;
+p @signarr;

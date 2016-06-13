@@ -1,0 +1,5 @@
+use strict;
+use warnings;
+use DDP;
+use Local::JSONL qw(decode_jsonl);
+p decode_jsonl(qq<{"a":[1,2,3]}\n{"b":"X\\n"}>)

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Me</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body>
+
+
+
+      <div class="row">
+
+        <div class="col-sm-12 blog-main">
+
+  <div class="col-sm-4 col-sm-offset-4">
+    <div class="media">
+    <br><br>
+        <div class="jumbotron colorswitch">
+        <img class="avatar_big" src="<% user.avatar | html %>" alt="no avatar">
+        <p class="text-center"><% user.nickname | html %> </p>
+        <p class="text-center">
+        Change your parameters
+        <br>
+        (if no change - leave empty)
+        </p>
+        <form role="form" action="/change" method="post">
+                  <div class="form-group">
+                      <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Nickname">
+                      <input type="text" name="password" id="password" class="form-control " placeholder="Password">
+                      <input type="text" name="avatar" id="avatar" class="form-control " placeholder="Avatar">
+                  </div>
+              <button type="submit" class="btn btn-lg btn-success btn-block">Change Profile</button>
+          </form>
+        <a class="btn btn-lg btn-success btn-block" href="/delete" role="button">Delete Profile</a>
+        <a class="btn btn-lg btn-success btn-block" href="/logout" role="button">Logout</a>
+        <a class="btn btn-lg btn-success btn-block" href="/last_five" role="button">All users</a>
+        </div>
+    </div>
+  </div>
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js></script>
+  </body>
+</html>

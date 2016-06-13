@@ -1,0 +1,11 @@
+use strict;
+use DDP;
+my @a; 
+my $k = 0;
+while (<>) {
+    chomp;
+    @F = split /:/, $_;
+    push(@a, \@F);
+    $k++; 
+}
+p @a;

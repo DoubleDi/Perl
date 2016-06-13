@@ -1,0 +1,98 @@
+Тестирование
+Функциональное, производительности, нагрузочное, юзабилити(пригодность),
+интерфейса, безопасности, локализации, совместимости.
+
+модульное - изолированное
+интеграционное - между 2
+ситсемное - в системе
+
+тесты - часть дизайна, а не контроль качества.
+
+prove - найдет тесты
+
+низкоуровненвые
+TAP::Harness
+Test::Builde
+
+высокоуровневые
+Test::Simple (только булевый ok);
+Test::more
+
+ok 
+is сравнивает через eq
+isnt
+like
+unlike(по регулярке матчит)
+cmp_ok(сравнить можно задавать выражение)
+can_ok
+isa_ok
+new_ok проверка на new
+
+subtest - иерархические тесты
+
+pass("test"); - прошел
+fail("test"); - не прошел
+
+require_ok 'My::Module'
+BEGIN { use_ok 'My::Module', qw(a b); }
+
+is_deeply - проверяет 2 структуры данных
+
+diag('write to stdout');
+note('write to stderr');
+
+explain - Data::Dumper удобный
+
+SKIP: {
+	skip('', $test_num) if (expression);
+}
+
+TODO: {
+	local $TODO = 'we are learning';
+	# тут будут тесты, в которых будет даже неправильно действие продолжит выполнение
+}
+
+todo_skip(); - брееед
+
+BAIL_OUT - выйди из тестов нафиг;
+
+Test::Class
+package My::test::Module;
+use base qw(Test::Class);
+
+sub aaaa : Test(setup); // в начале метода
+sub aaaa : Test(teardown); // в конце метода
+
+sub aaaa : Test(startup); // в начале метода
+sub aaaa : Test(shutdown); // в конце метода
+
+t/class.t -> оттуда запускаем testclass
+
+INIT, после BEGIN
+
+любой класс загружает родителя, а в родителе INIT запускает тест у pm ника
+
+Есть базовый класс от Тест класса
+
+sub SKIP_CLASS { 1 } # пропустить тесты этого модуля
+
+Test::Deep
+
+cmp_deeply
+ignore() - пропуск
+methods - есть ли обьект с такими методами
+listmethods - в списочном контексте
+re() - регулярочка
+bag - массив с такими элементами в любом порядке
+all - много всего
+any - хотя бы одна
+isa - тип
+
+для бд нужны инициализированные данные 
+метод populate массив данных в DBIX
+
+Mock - подменять;
+MockObject - лжеобьект
+В Mock нет assert.
+
+

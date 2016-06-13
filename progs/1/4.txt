@@ -1,0 +1,18 @@
+l
+w $k
+w $F
+b 9
+v
+b 11 $k == 2
+c
+p $F
+c
+T
+s
+s
+s
+s
+c
+p $k
+r
+q

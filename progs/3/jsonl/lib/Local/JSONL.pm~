@@ -1,0 +1,103 @@
+package Local::JSONL;
+
+use strict;
+use warnings;
+
+=encoding utf8
+
+=head1 NAME
+
+Local::JSONL - JSON-lines encoder/decoder
+
+=head1 VERSION
+
+Version 1.00
+
+=cut
+
+our $VERSION = '1.00';
+
+=head1 SYNOPSIS
+
+    use Local::JSONL qw(
+        encode_jsonl
+        decode_jsonl
+    );
+
+    $string = encode_jsonl([
+        {a => 1},
+        {b => 2},
+    ]);
+
+    $array_ref = decode_jsonl(
+        '{"a": 1}' + "\n" +
+        '{"b": 2}'
+    );
+
+=cut
+
+use Exporter 'import';
+our @EXPORT = qw(decode_arr);
+
+sub decode_hash;
+
+sub decode_arr {
+    my @arr;
+    my $val = '';
+    my $ch = shift(@_);
+    while ($ch ne ']') {
+        if ($ch eq '[') { $val = decode_arr(@_) }
+        elsif ($ch eq '{') { $val = decode_hash(@_) }
+        else {
+            while ($ch ne ',' && $ch ne ']') {
+                $val = $val.$ch;
+                $ch = shift(@_);
+            }
+        }
+        push (@arr, $val);
+        if ($ch eq ']') { last }
+        else { $ch = shift(@_) }      
+    }
+    return \@arr;
+}
+
+sub decode_hash {
+    my %hash;
+    my $key = '';
+    my $val = '';
+    my $flag = 0;
+    my $ch = shift(@_);
+    while ($ch ne '}') {
+        shift(@_);
+        while ($ch = shift(@_) ne '"') {
+            $key = $key.$ch;
+            shift(@_);
+        }
+        shift(@_);
+        $ch = shift(@_);
+        if ($ch eq '[') { $val = decode_arr(@_) }
+        elsif ($ch eq '{') { $val = decode_hash(@_) }
+        else {
+            while ($ch ne ',' && $ch ne '}') {
+                $val = $val.$ch;
+                $ch = shift(@_);
+            }
+        }
+        $hash{$key} = $val;
+        if ($ch eq '}') { last }
+        else { shift(@_) }
+    }
+    return \%hash;
+}
+
+sub decode_jsonl {
+    our @arr = split('', @_);
+    my $ch = shift(@arr);
+    if ($ch eq '{') {  return decode_hash(\@arr) }
+    elsif ($ch eq '[') { return decode_arr(\@arr) }
+    return 1;
+}
+
+
+
+1;

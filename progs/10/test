@@ -1,0 +1,14 @@
+
+double typemap_x, typemap_y, typemap_r;
+#arg - hashref
+SV *typemap__circle = SvRV($arg);
+HV *typemap_circle = (HV*)typemap__circle;
+SV **typemap__x = hv_fetch(typemap__circle, \"x\", 1, 0);
+SV **typemap__y = hv_fetch(typemap__circle, \"y\", 1, 0);
+SV **typemap__r = hv_fetch(typemap__circle, \"r\", 1, 0);
+typemap_x = SvNV(*typemap__x);
+typemap_y = SvNV(*typemap__y);
+typemap_r = SvNV(*typemap__r);
+$type pt = malloc(sizeof(CIRCLE));
+pt->x = typemap_x; pt->y = typemap_y; pt->r = typemap_r;
+$var = ($type)pt;

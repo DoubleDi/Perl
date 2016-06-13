@@ -1,0 +1,27 @@
+Производительность
+CPU time vs real time
+лучше real
+как мерять?
+time
+real -реальное
+user -пользователь
+sys -система
+
+Профилировщики
+Devel::NYTProf #New york Times
+-d:NYTProf
+
+меряет все все все по функциям вызываемым
+Exclusive - время именно работы
+Inclusive - время общей работы
+
+НЕ оптимизировать программы
+
+Benchmark и сравниваем!
+timethis()
+timethese()
+cmpthese timethese
+
+Утечки 
+Devel::Leak;
+
