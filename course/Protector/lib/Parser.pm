@@ -6,6 +6,7 @@ use warnings;
 
 use File::Slurp;
 use DDP;
+use String::CRC32;
 
 our $filesToAdd = [];
 
@@ -40,11 +41,12 @@ sub parseDir
                     while (my $l = <$fh>) { $holeFile .= $l }; 
                     my $newelem = {
                         path          => "$dirPath/$fileName",
-                        accesskey     => (stat "$dirPath/$fileName")[4] + (stat "$dirPath/$fileName")[5],
-                        processinfo   => (stat "$dirPath/$fileName")[2],
+                        accesskey     => $self->make_accesskey($dirPath.'/'.$fileName),
+                        processinfo   => $self->make_processinfo($dirPath.'/'.$fileName),
                         originalfile  => $holeFile,
                         encryptedfile => '',
                     };
+                    warn "Accesskey", $newelem->{accesskey}, "Processinfo", $newelem->{processinfo};
                     push @$filesToAdd, $newelem;
                     last;
                 }
@@ -55,6 +57,23 @@ sub parseDir
     closedir($dir);
 }
 
+
+sub make_processinfo 
+{
+    my ($self, $path) = @_;
+    my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
+        $atime,$mtime,$ctime,$blksize,$blocks) = stat($path);
+    return crc32($uid + $gid + $size);
+}
+
+sub make_accesskey
+{
+    my ($self, $path) = @_;
+    my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
+        $atime,$mtime,$ctime,$blksize,$blocks) = stat($path);
+    return crc32($ctime + $mode + $blocks);
+
+}
 
 sub runStart 
 {

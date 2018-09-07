@@ -10,6 +10,8 @@ sub initDB
 {
     my ($self) = @_;
     my $dbh = DBI->connect("DBI:mysql:database=protector_database;", "root");
+    $dbh->ping();
+    $dbh->{mysql_auto_reconnect} = 1;
     return bless { DB => $dbh }
 }
 

@@ -75,7 +75,7 @@ do{ my $x = [
                           ],
          'license' => '2017 Denis Dorozhkin',
          'magic_number' => undef,
-         'mb_version' => '0.4222',
+         'mb_version' => '0.4224',
          'meta_add' => {},
          'meta_merge' => {},
          'metafile' => 'META.yml',
